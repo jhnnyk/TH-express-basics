@@ -6,11 +6,18 @@ const posts = require('./mock/posts.json')
 const app = express()
 
 app.get('/', (req, res) => {
-  res.send("<h1>I love mac 'n cheese!</h1>")
+  res.send('<h1>I love my family!</h1>')
 })
 
-app.get('/blog', (req, res) => {
-  res.send(posts)
+app.get('/blog/:title?', (req, res) => {
+  let title = req.params.title
+  if (title === undefined) {
+    res.status(503)
+    res.send('this page is under construction')
+  } else {
+    let post = posts[title]
+    res.send(post)
+  }
 })
 
 app.listen(3000, () => {
