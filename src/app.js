@@ -12,7 +12,9 @@ app.set('view engine', 'pug')
 app.set('views', __dirname + '/templates')
 
 app.get('/', (req, res) => {
-  res.render('index')
+  let path = req.path
+  // res.locals.path = path // this is the same as adding the path variable in the parameters below
+  res.render('index', {path: path})
 })
 
 app.get('/blog/:title?', (req, res) => {
