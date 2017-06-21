@@ -2,6 +2,7 @@
 
 const express = require('express')
 const posts = require('./mock/posts.json')
+let postsList = Object.keys(posts).map((value) => { return posts[value] })
 
 const app = express()
 
@@ -18,7 +19,7 @@ app.get('/blog/:title?', (req, res) => {
   let title = req.params.title
   if (title === undefined) {
     res.status(503)
-    res.send('this page is under construction')
+    res.render('blog', {posts: postsList})
   } else {
     let post = posts[title] || {}
     res.render('post', {post: post})
